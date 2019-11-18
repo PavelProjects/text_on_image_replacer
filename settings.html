@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>Replacer settings</title>
+</head>
+<style>
+    img{
+        width: 200px;
+        height: 200px;
+        border-radius: 8px;
+    }
+    .trash{
+        width: 20px;
+        height: 20px;
+        float: right;
+    }
+    .smoove{
+        border-radius: 8px
+    }
+    .add{
+        text-align: center;
+        border: 1px solid #d6e9c6;
+        border-radius: 4px;
+        color: green;
+        background-color: #dff0d8;
+    }
+    div.polaroid {
+        width: min-content;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin: 5px;
+        display:inline-block;
+    }
+
+    div.container {
+        text-align: center;
+        padding: 10px 20px;
+    }
+    .in_line{
+        display: inline-block;
+    }
+
+</style>
+<body>
+    <div>
+        <h1 class="in_line">Replacer extension</h1>
+        <button id="powerSwitch" class="in_line" style="background: green;align-self: center;">turn of</button>
+    </div>
+    <div class="add">
+        <div>
+            <p>Trigger word:</p>
+            <input class="smoove" id="word">
+        </div>
+        <div>
+            <p>Image link:</p>
+            <input class="smoove" id="src">
+        </div>
+        <button class="smoove" id="addButton" style="background-color: green;">add</button>
+    </div>
+    <div id="imgs_box"></div>
+    <button class="smoove" id="deleteAll" style="background-color: red;">delete all</button>
+    <p style="position: absolute;bottom: 8px;right: 16px;font-size: 18px;">created by poeblo</p>
+</body>
+<script src="settings_script.js"></script>
+</html>
