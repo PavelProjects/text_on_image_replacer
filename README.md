@@ -4,7 +4,7 @@
 2. Open chrome://extensions/
 3. Turn on developer mode
 4. Choose load unpacked->choose extension directory 
-Better using git clone for easy updates.
+###### Better using git clone for easy updates.
 
 ### By .crx file (for Yandex Browser/ Opera)
 1. Unpack .zip
