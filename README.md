@@ -1,4 +1,5 @@
-How to install:
-1)Open chrome://extensions/
-2)Turn on developer mode
-3)Choose load unpacked->choose directory
+## How to install:
+1. Unpack .zip
+2. Open chrome://extensions/
+3. Turn on developer mode
+4. Choose load unpacked->choose extension directory 
