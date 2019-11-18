@@ -17,10 +17,5 @@ chrome.storage.sync.get("extension_state", function(res){
 });
 
 chrome.storage.onChanged.addListener(function(changes, namespace){
-    for(var key in changes){
-        var storageChange = changes[key];
-        if(key=="extension_state"){
-            window.location.reload();
-        }
-    }
+        window.location.reload();
 });
