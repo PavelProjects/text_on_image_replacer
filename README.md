@@ -4,6 +4,11 @@
 2. Open chrome://extensions/
 3. Turn on developer mode
 4. Choose load unpacked->choose extension directory 
+###### Better using git clone for easy updates.
+
 ### By .crx file (for Yandex Browser/ Opera)
 1. Unpack .zip
 2. Take .crx file and drop it on browser://tune/ page
+#How to update(Chrome)
+1. Download new version
+2. Press reload button(circular arrow) in chrome://extensions/
