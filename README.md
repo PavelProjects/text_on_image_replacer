@@ -12,3 +12,10 @@
 #How to update(Chrome)
 1. Download new version
 2. Press reload button(circular arrow) in chrome://extensions/
+
+
+# Version 1.1 release notes
+* Added search view in pop menu
+* Added autosend function, which automatically send picture, when it's loaded
+* Fixed: image link sent with image
+

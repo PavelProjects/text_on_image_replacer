@@ -1,7 +1,9 @@
 var on="on"; var off="off";
+var divs=[]; var trash="https://cdn2.iconfinder.com/data/icons/web/512/Trash_Can-512.png";
 function updateState(){
     var powerSwitch = document.getElementById("powerSwitch");
-    chrome.storage.sync.get('extension_state', function(res){
+    var checkBoxAutoSend = document.getElementById("autosendCheckBox");
+    chrome.storage.sync.get(['extension_state','autosend'], function(res){
         var state=res["extension_state"];
         if(state==on){
             powerSwitch.style.backgroundColor="green";
@@ -16,11 +18,16 @@ function updateState(){
             powerSwitch.style.backgroundColor="green";
             powerSwitch.firstChild.data="working"
         }
+        var autosend=res.autosend;
+        if(autosend){
+            checkBoxAutoSend.checked=true;
+        }else{
+            checkBoxAutoSend.checked=false;
+        }
     });
 }
 window.onload=updateState();
 
-var divs=[]; var trash="https://cdn2.iconfinder.com/data/icons/web/512/Trash_Can-512.png";
 document.addEventListener("click", function(event){
     if(event.target.className=="trash"){
         if(confirm("are u sure?")){
@@ -37,10 +44,13 @@ document.addEventListener("click", function(event){
     }
 });
 document.addEventListener('DOMContentLoaded', function(){
-    loadPairs();
+    loadAll();
     var addButton= document.getElementById("addButton");
     var deleteButton = document.getElementById("deleteAll");
     var powerSwitch = document.getElementById("powerSwitch");
+    var inputName = document.getElementById("word");
+    var inputSrc = document.getElementById("src");
+    var checkBoxAutoSend = document.getElementById("autosendCheckBox");
     powerSwitch.addEventListener("click", function(){
         chrome.tabs.getSelected(null, function(tab){
             chrome.storage.sync.get('extension_state', function(res){
@@ -61,11 +71,23 @@ document.addEventListener('DOMContentLoaded', function(){
             });
         });
     },false);
+    inputName.addEventListener("keyup", function(event){
+        if(event.keyCode==13){
+            event.preventDefault();
+            addButton.click();
+        }
+    },false);
+    inputSrc.addEventListener("keyup", function(event){
+        if(event.keyCode==13){
+            event.preventDefault();
+            addButton.click();
+        }
+    },false);
     addButton.addEventListener('click', function(){
-        if(document.getElementById("src").value!="" && document.getElementById("word").value!=""){
-            addNewPair(document.getElementById("src").value,document.getElementById("word").value);
-            document.getElementById("src").value="";
-            document.getElementById("word").value="";
+        if(inputSrc.value!="" && inputName.value!=""){
+            addNewPair(inputSrc.value,inputName.value);
+            inputSrc.value="";
+            inputName.value="";
         }else{
             alert("All inputs must be filled!");
         }
@@ -75,6 +97,9 @@ document.addEventListener('DOMContentLoaded', function(){
             deleteAll();
         }
     },false);
+    checkBoxAutoSend.addEventListener('click', function(event){
+        chrome.storage.sync.set({'autosend':checkBoxAutoSend.checked});
+    },false);
 },false);
 
 function addNewPair(src, word){
@@ -82,28 +107,31 @@ function addNewPair(src, word){
     element[word]=src;
     chrome.storage.sync.set(element);
 }
-
-function loadPairs(){
+function loadAll(){
     chrome.storage.sync.get(null,function(items){
+        var i=0;
+        var counter=document.getElementById("count");
         var elements=Object.keys(items);
         console.log(elements);
         elements.forEach(function(key,index,array){
-            chrome.storage.sync.get(key, function(res){
-                addElementToView(res[key],key);
-            });
+            if(key!="extension_state" && key!="autosend"){
+                chrome.storage.sync.get(key, function(res){
+                    addElementToView(res[key],key);
+                });
+                i++;
+            }
         });
+        counter.innerHTML=i;
     });
 }
 
 function addElementToView(src, text){
-    if(text!="extension_state"){
-        let div = document.createElement('div');
-        div.className="polaroid";
-        div.id=""+divs.length+1;
-        div.innerHTML="<a href="+src+"><img src="+src+"></a><div class=\"container\"><strong id=\"word"+divs.length+1+"\">"+text+"</strong><input type=\"image\" src="+trash+" class=\"trash\" id="+divs.length+1+"></div>";
-        document.getElementById("imgs_box").appendChild(div);
-        divs.unshift(div);
-    }
+    let div = document.createElement('div');
+    div.className="polaroid";
+    div.id=""+divs.length+1;
+    div.innerHTML="<a href="+src+" target=\"_blank\"><img src="+src+"></a><div class=\"container\"><strong id=\"word"+divs.length+1+"\">"+text+"</strong><input type=\"image\" src="+trash+" class=\"trash\" id="+divs.length+1+"></div>";
+    document.getElementById("imgs_box").appendChild(div);
+    divs.unshift(div);
 }
 
 function deleteAll(){
@@ -118,6 +146,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
     divs.forEach(function(item, index, array){
         item.remove();
     });
-    loadPairs();
+    loadAll();
     updateState();
 });

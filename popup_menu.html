@@ -1,7 +1,42 @@
 <html>
+    <style>
+        .smoove{
+            margin: 5px;
+            border-radius: 8px
+        }
+        .block{
+            border: 1px solid #eb1010;
+            border-radius: 4px;
+            color: green;
+            background-color: #dff0d8;
+        }
+        .element{
+            border: 1px solid black;
+            border-radius: 4px;
+            color: black;
+            float: left;
+            margin: 1px;
+            text-align: center;
+        }
+        .content{
+            border-radius: 4px;
+            width: 40px;
+            height: 40px;
+        }
+        h1{
+            text-align: center;
+        }
+    </style>
     <body>
-        <button id="powerSwitch", style="background: green;align-self: center;">turn off</button>
-        <button id="settingsButton">Settings</button>
+        <div class="block">
+            <button class="smoove" id="powerSwitch", style="background: green;align-self: center;">turn off</button>
+            <button class="smoove" id="settingsButton">Settings</button>
+        </div>
+        <div class="block">
+            <input id="searchInput" class ="smoove" type="text" style="width: 150px; margin-bottom: 0px;">
+            <button id="searchButton" class ="smoove" style="width: 150px; margin-top: 0px;">search</button>
+            <div id="searchView" style="overflow: auto; height: 250px;"></div>
+        </div>
     </body>
     <script src="popup_service.js"></script>
 </html>
